@@ -1,0 +1,11 @@
+//
+//  Config.xcconfig
+//  BrandiAssign
+//
+//  Created by seunghwan Lee on 2021/09/30.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_KEY = KakaoAK b52b122a75d721983ee0a15df750eaf7
