@@ -11,7 +11,7 @@ enum Router {
     case fetchImages(query: String, page: Int)
     
     var url: String {
-        return baseURL + path
+        return (baseURL + path).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
     }
     
     private var baseURL: String {
