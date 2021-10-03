@@ -11,8 +11,8 @@ import Kingfisher
 class ImageCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
-    func configure(with ImageInfo: Document) {
-        if let thumbnailURL = URL(string: ImageInfo.thumbnailURL) {
+    func configure(with imageInfo: ImageInfo) {
+        if let thumbnailURL = URL(string: imageInfo.thumbnailURL) {
             self.imageView.kf.setImage(with: thumbnailURL)
         }
     }

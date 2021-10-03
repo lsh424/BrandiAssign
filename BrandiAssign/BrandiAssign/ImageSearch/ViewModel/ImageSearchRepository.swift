@@ -10,11 +10,10 @@ import Alamofire
 import RxSwift
 
 protocol ImageSearchRepositoryType {
-    func fetchImages() -> Observable<SearchResult>
+    func fetchSearchResult(query: String, page: Int) -> Observable<SearchResult>
 }
 
-class ImageSearchRepository {
-    
+class ImageSearchRepository: ImageSearchRepositoryType {
     func fetchSearchResult(query: String, page: Int = 1) -> Observable<SearchResult> {
         return Observable.create { emitter in
             let router: Router = .fetchImages(query: query, page: page)
@@ -23,8 +22,8 @@ class ImageSearchRepository {
                 case .success(let response):
                     emitter.onNext(response)
                     emitter.onCompleted()
-                case .failure(let err):
-                    emitter.onError(err)
+                case .failure(_):
+                    emitter.onError(NetworkError.decodingFail)
                 }
             }
             return Disposables.create()

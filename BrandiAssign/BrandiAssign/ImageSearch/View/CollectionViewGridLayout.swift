@@ -7,8 +7,7 @@
 
 import UIKit
 
-class CollectionVeiwGridLayout: UICollectionViewFlowLayout {
-    
+class CollectionViewGridLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
         self.minimumLineSpacing = 1

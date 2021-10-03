@@ -7,21 +7,12 @@
 
 import Foundation
 
-struct ImageInfo {
-    let thumbnailURL: String
-    let imageURL: String
-    let width: Int
-    let height: Int
-    let displaySitename: String
-    let datetime: String
-}
-
 struct SearchResult: Codable {
     let meta: Meta
-    let documents: [Document]
+    let documents: [ImageInfo]
 }
 
-struct Document: Codable {
+struct ImageInfo: Codable {
     let thumbnailURL: String
     let imageURL: String
     let width: Int
