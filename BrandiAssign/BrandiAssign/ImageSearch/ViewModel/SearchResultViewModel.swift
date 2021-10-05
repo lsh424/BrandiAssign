@@ -32,19 +32,22 @@ class SearchResultViewModel {
     
     private func bind() {
         searchText.asObservable()
-            .bind { _ in
-                self.currentPage.accept(1)
+            .flatMapLatest { [weak self] (searhText: String) in
+                self?.fetchImages(query: searhText, page: 1) ?? Observable.just([])
+            }
+            .bind { text in
                 self.imageInfos.accept([])
+                self.currentPage.accept(1)
             }
             .disposed(by: disposeBag)
         
-        Observable
-            .combineLatest(currentPage, searchText)
-            .flatMapLatest { [weak self] (page: Int, searhText: String) in
-                self?.fetchImages(query: searhText, page: page) ?? Observable.just([])
+        currentPage.asObservable()
+            .flatMapLatest { [weak self] (page: Int) -> Observable<[ImageInfo]> in
+                self?.fetchImages(query: self?.searchText.value ?? "", page: page) ?? Observable.just([])
             }
             .subscribe(onNext: { [weak self] result in
                 self?.imageInfos.accept((self?.imageInfos.value ?? []) + result)
+                
             }, onError: { [weak self] error in
                 self?.error.accept(.unknown)
             })
